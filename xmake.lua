@@ -44,6 +44,20 @@ target("ClientDemo4")
     set_targetdir("demo4/build")
     add_links("vsomeip3")
     add_ldflags("-lpthread")
+
+target("ServerDemo5")
+    set_kind("binary")
+    add_files("demo5/server.cpp")
+    set_targetdir("demo5/build")
+    add_ldflags("-lpthread")
+    add_links("vsomeip3")
+
+target("ClientDemo5")
+    set_kind("binary")
+    add_files("demo5/client.cpp")
+    set_targetdir("demo5/build")
+    add_links("vsomeip3")
+    add_ldflags("-lpthread")
 --
 -- If you want to known more usage about xmake, please see https://xmake.io
 --
