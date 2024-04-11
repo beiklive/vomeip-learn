@@ -39,7 +39,7 @@ set_target_properties(ClientDemo3 PROPERTIES
 add_executable(ServerDemo4 demo4/server.cpp)
 target_link_libraries(ServerDemo4 vsomeip3)
 set_target_properties(ServerDemo4 PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/demo3/build")
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/demo4/build")
 
 # Demo4 - Client
 add_executable(ClientDemo4 demo4/client.cpp)

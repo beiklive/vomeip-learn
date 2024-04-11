@@ -33,8 +33,8 @@ target("ClientDemo3")
 
 target("ServerDemo4")
     set_kind("binary")
-    add_files("demo3/server.cpp")
-    set_targetdir("demo3/build")
+    add_files("demo4/server.cpp")
+    set_targetdir("demo4/build")
     add_links("vsomeip3")
 
 target("ClientDemo4")

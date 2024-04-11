@@ -48,6 +48,7 @@ xmake
 ### 编译后目录结构
 ```bash
 .
+├── build
 ├── CMakeLists.txt
 ├── demo1
 │   ├── app.cpp
@@ -62,13 +63,13 @@ xmake
 ├── demo3
 │   ├── build
 │   │   ├── ClientDemo3
-│   │   ├── ServerDemo3
-│   │   └── ServerDemo4
+│   │   └── ServerDemo3
 │   ├── client.cpp
 │   └── server.cpp
 ├── demo4
 │   ├── build
-│   │   └── ClientDemo4
+│   │   ├── ClientDemo4
+│   │   └── ServerDemo4
 │   ├── client.cpp
 │   └── server.cpp
 ├── README.md
