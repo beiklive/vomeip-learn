@@ -2,9 +2,13 @@
 ## 前期准备
 
 Ubuntu18.04
+
 gcc
+
 cmake/xmake
+
 boost库
+
 
 ### 编译环境准备
 ```bash
@@ -28,6 +32,7 @@ sudo make install
 ## demo使用
 ### 编译
 可使用 cmake 或者 xmake 编译
+
 编译完成后可执行文件会在各demo的build目录下
 #### cmake
 ```bash
