@@ -54,6 +54,12 @@ RUN cd vsomeip-learn \
 
 RUN apt-get clean
 
+WORKDIR /cmake
+RUN rm -rf *
+
+WORKDIR /vsomeip
+RUN rm -rf *
+RUN rm -rf /var/lib/apt/lists/*
 
 # 容器启动时运行你的 VSOMEIP 应用程序
 CMD ["sh", "-c", "pwd && ls && ls /usr/local/lib/"]

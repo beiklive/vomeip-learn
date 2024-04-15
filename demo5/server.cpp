@@ -28,7 +28,6 @@ void on_state_cbk(vsomeip::state_type_e _state)
     if(_state == vsomeip::state_type_e::ST_REGISTERED)
     {        // we are registered at the runtime and can offer our service
         LOG_INF("[DJ] OFFER service");
-        app->offer_service(service_id, service_instance_id);
     }
 }
 
@@ -39,6 +38,7 @@ int main(int argc, char** argv)
 
     app->register_message_handler(service_id, service_instance_id, vsomeip::ANY_METHOD, on_message_cbk);
     app->register_state_handler(on_state_cbk);
+    app->offer_service(service_id, service_instance_id);
 
     app->start();
     return 0;
