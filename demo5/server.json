@@ -1,16 +1,16 @@
 {
-    "unicast" : "172.19.193.171",
+    "unicast" : "172.18.0.2",
     "logging" :
     { 
         "level" : "debug",
         "console" : "true",
-        "file" : { "enable" : "false", "path" : "/tmp/vsomeip.log" },
+        "file" : { "enable" : "false", "path" : "/var/log/vsomeip-ServerApp.log" },
         "dlt" : "false"
     },
     "applications" : 
     [
         {
-            "name" : "World",
+            "name" : "ServerApp",
             "id" : "0x1212"
         }
     ],
@@ -18,11 +18,11 @@
     [
         {
             "service" : "0x1234",
-            "instance" : "0x5678",
+            "instance" : "0x9999",
             "unreliable" : "30509"
         }
     ],
-    "routing" : "World",
+    "routing" : "ServerApp",
     "service-discovery" :
     {
         "enable" : "true",
