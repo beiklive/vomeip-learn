@@ -39,7 +39,8 @@ void on_message_cbk(const std::shared_ptr<vsomeip::message>& _response)
 // 获取从客户端拿到的payload
     std::shared_ptr<vsomeip::payload> its_payload = _response->get_payload();
     // 获取 payload 内容
-    auto str = reinterpret_cast<const char*>(its_payload->get_data());
+    std::string str;
+    str.append(reinterpret_cast<const char*>(_response->get_payload()->get_data()),0, _response->get_payload()->get_length());
  
     std::cout << "[message Received][Client/Session:"
     << std::setw(4) << std::setfill('0') << std::hex << _response->get_client() << "/"
