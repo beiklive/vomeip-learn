@@ -16,6 +16,22 @@ std::shared_ptr<vsomeip::application> app;
 std::mutex mutex;
 std::condition_variable condition;
 
+void stop()
+{
+    // unregister the state handler
+    app->unregister_state_handler();
+    // unregister the message handler
+    app->unregister_message_handler(vsomeip::ANY_SERVICE,
+            service_instance_id, vsomeip::ANY_METHOD);
+    // alternatively unregister all registered handlers at once
+    app->clear_all_handler();
+    // release the service
+    app->release_service(service_id, service_instance_id);
+    // shutdown the application
+    app->stop();
+}
+
+
 void on_state_cbk(vsomeip::state_type_e _state)
 {
     if (_state == vsomeip::state_type_e::ST_REGISTERED)
@@ -46,6 +62,7 @@ void on_message_cbk(const std::shared_ptr<vsomeip::message>& _response)
     << std::setw(4) << std::setfill('0') << std::hex << _response->get_client() << "/"
     << std::setw(4) << std::setfill('0') << std::hex << _response->get_session()
     << "] " << str << std::endl;
+    stop();
 }
 
 void msg_send(){
@@ -68,6 +85,8 @@ void msg_send(){
     // 发送请求
     app->send(request);
 }
+
+
 
 int main(int argc, char** argv)
 {
