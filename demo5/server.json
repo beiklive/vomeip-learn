@@ -19,7 +19,12 @@
         {
             "service" : "0x1234",
             "instance" : "0x9999",
-            "unreliable" : "30509"
+            "unreliable" : "30509",
+            "multicast" :
+            {
+                "address" : "224.225.226.234",
+                "port" : "32344"
+            }
         }
     ],
     "routing" : "ServerApp",
