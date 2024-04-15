@@ -74,7 +74,7 @@ int main(int argc, char** argv)
     app->init();
    app->register_availability_handler(service_id, service_instance_id, on_availability_cbk);
     app->request_service(service_id, service_instance_id);
-    app->register_message_handler(service_id, service_instance_id, vsomeip::ANY_METHOD, on_message_cbk);
+    app->register_message_handler(service_id, service_instance_id, service_method_id, on_message_cbk);
 
     std::thread sender(msg_send);
     app->start();
