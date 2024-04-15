@@ -2,7 +2,7 @@
     "unicast" : "172.18.0.2",
     "logging" :
     { 
-        "level" : "debug",
+        "level" : "info",
         "console" : "true",
         "file" : { "enable" : "false", "path" : "/var/log/vsomeip-ServerApp.log" },
         "dlt" : "false"
