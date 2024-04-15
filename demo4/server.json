@@ -1,20 +1,28 @@
 {
-    "unicast" : "172.18.0.11",
+    "unicast" : "172.18.0.2",
     "logging" :
-    {
+    { 
         "level" : "debug",
         "console" : "true",
-        "file" : { "enable" : "false", "path" : "/var/log/vsomeip-Client.log" },
+        "file" : { "enable" : "false", "path" : "/var/log/vsomeip-ServerApp.log" },
         "dlt" : "false"
     },
     "applications" : 
     [
         {
-            "name" : "Clientdemo1",
-            "id" : "0x1313"
-        } 
+            "name" : "ServerApp",
+            "id" : "0x1212"
+        }
     ],
-    "routing" : "Clientdemo1",
+    "services" :
+    [
+        {
+            "service" : "0x1234",
+            "instance" : "0x9999",
+            "unreliable" : "30509"
+        }
+    ],
+    "routing" : "ServerApp",
     "service-discovery" :
     {
         "enable" : "true",
