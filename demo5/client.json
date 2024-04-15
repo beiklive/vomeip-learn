@@ -14,7 +14,7 @@
             "id" : "0x1313"
         } 
     ],
-    "routing" : "Clientdemo1",
+    "routing" : "ServerApp",
     "service-discovery" :
     {
         "enable" : "true",
