@@ -58,3 +58,15 @@ add_executable(ClientDemo5 demo5/client.cpp)
 target_link_libraries(ClientDemo5 vsomeip3 pthread) # 添加pthread链接
 set_target_properties(ClientDemo5 PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/demo5/build")
+
+# Demo6 - Server
+add_executable(ServerDemo6 demo6/server.cpp)
+target_link_libraries(ServerDemo6 vsomeip3 pthread)
+set_target_properties(ServerDemo6 PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/demo6/build")
+
+# Demo6 - Client
+add_executable(ClientDemo6 demo6/client.cpp)
+target_link_libraries(ClientDemo6 vsomeip3 pthread) # 添加pthread链接
+set_target_properties(ClientDemo6 PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/demo6/build")

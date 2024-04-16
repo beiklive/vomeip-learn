@@ -1,12 +1,15 @@
-#include <iomanip>
 #include <iostream>
+#include <vsomeip/vsomeip.hpp>
+#include <iomanip>
 #include <condition_variable>
 #include <thread>
-#include <vsomeip/vsomeip.hpp>
- 
+#include <cstdio>
+#define LOG_INF(...) fprintf(stdout, __VA_ARGS__), fprintf(stdout, "\n")
+
 static vsomeip::service_t service_id = 0x1234;
 static vsomeip::instance_t service_instance_id = 0x9999;
- 
+static vsomeip::instance_t service_method_id = 0x1145;
+
 #define SOMEIP_EVENT_ID_1             0x0333
 #define SOMEIP_EVENT_ID_2             0x0334
 #define SOMEIP_EVENT_ID_3             0x0335
@@ -15,24 +18,31 @@ static vsomeip::instance_t service_instance_id = 0x9999;
 #define SOMEIP_EVENTGROUP_ID_2        0x02
 #define SOMEIP_EVENTGROUP_ID_3        0x03
  
- 
+
 std::shared_ptr<vsomeip::application> app;
 std::mutex mutex;
 std::condition_variable condition;
- 
- 
-void on_availability(vsomeip::service_t _service, vsomeip::instance_t _instance, bool _is_available) {
-    std::cout << "Service ["
-            << std::setw(4) << std::setfill('0') << std::hex << _service << "." << _instance
-            << "] is " << (_is_available ? "available." : "NOT available.")  << std::endl;
-    // 检测到服务可用后，通知子线程发送消息
+
+
+void on_state_cbk(vsomeip::state_type_e _state)
+{
+    if (_state == vsomeip::state_type_e::ST_REGISTERED)
+    {
+        app->request_service(service_id, service_instance_id);
+    }
+}
+
+void on_availability_cbk(vsomeip::service_t _service, vsomeip::instance_t _instance, bool _is_available)
+{
+    std::cout << "[DJ] Service ["
+        << std::setw(4) << std::setfill('0') << std::hex << _service << "." << _instance
+        << "] is " << (_is_available ? "available." : "NOT available.")  << std::endl;
     if(_is_available){
         condition.notify_one();
     }
 }
- 
-// 处理接收到的消息
-void on_event_cbk(const std::shared_ptr<vsomeip::message> &_response)
+
+void on_message_cbk(const std::shared_ptr<vsomeip::message>& _response)
 {
     std::stringstream its_message;
     its_message << ">>>>> CLIENT: received a notification for event ["
@@ -54,32 +64,26 @@ void on_event_cbk(const std::shared_ptr<vsomeip::message> &_response)
             << (int) its_payload->get_data()[i] << " ";
     std::cout << its_message.str() << std::endl;
 }
- 
+
 void msg_send(){
     std::unique_lock<std::mutex> its_lock(mutex);
-    // 需要确认服务可用之后才能订阅服务，所以还是需要阻塞一下等待可用性
     condition.wait(its_lock);
-    // 绑定事件组和事件，向服务端发送订阅特定事件的请求
-    // 这里只请求了事件1，没有请求事件2
     app->request_event(service_id, service_instance_id, SOMEIP_EVENT_ID_1, {SOMEIP_EVENTGROUP_ID_1}, vsomeip::event_type_e::ET_FIELD);
-    // 告知服务端，已经准备好开始接收特定事件组的事件通知
     app->subscribe(service_id, service_instance_id, SOMEIP_EVENTGROUP_ID_1);
+    
 }
- 
+
+
+
 int main(int argc, char** argv)
 {
-    app = vsomeip::runtime::get()->create_application("FirstClient");
+    app = vsomeip::runtime::get()->create_application();
     app->init();
-
-    app->register_availability_handler(service_id, service_instance_id, on_availability);
+    app->register_availability_handler(service_id, service_instance_id, on_availability_cbk);
     app->request_service(service_id, service_instance_id);
+    app->register_message_handler(service_id, service_instance_id, vsomeip::ANY_METHOD, on_message_cbk);
 
-    // 注册消息处理回调函数，客户端的 method id必须与请求的远端method id一致
-    app->register_message_handler(service_id, service_instance_id, vsomeip::ANY_METHOD, on_event_cbk);
-     
-    // 在子线程中运行消息发送函数， 因为发送消息需要 start 内部的事件循环，而 start 函数时阻塞性质的，必须在子线程中等待事件循环
     std::thread sender(msg_send);
     app->start();
- 
     return 0;
 }

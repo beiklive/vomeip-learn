@@ -1,0 +1,75 @@
+{
+    "unicast" : "172.18.0.2",
+    "logging" :
+    { 
+        "level" : "info",
+        "console" : "true",
+        "file" : { "enable" : "false", "path" : "/var/log/vsomeip-ServerApp.log" },
+        "dlt" : "false"
+    },
+    "applications" : 
+    [
+        {
+            "name" : "ServerApp",
+            "id" : "0x1212"
+        }
+    ],
+    "services" :
+    [
+        {
+            "service" : "0x1234",
+            "instance" : "0x9999",
+            "unreliable" : "30509",
+            "event" :
+            [
+                {
+                    "event" : "0x0333",
+                    "is_field" : "true",
+                    "update-cycle" : 1000
+                },
+                {
+                    "event" : "0x0334",
+                    "is_field" : "true",
+                    "update-cycle" : 1000
+                },
+                {
+                    "event" : "0x0335",
+                    "is_field" : "true",
+                    "update-cycle" : 1000
+                },
+                {
+                    "event" : "0x0336",
+                    "is_field" : "true",
+                    "update-cycle" : 1000
+                }
+            ],
+            "eventgroups" :
+            [
+                {
+                    "eventgroup" : "0x01",
+                    "events" : ["0x0333", "0x0334"]
+                },
+                {
+                    "eventgroup" : "0x02",
+                    "events" : ["0x0335"]
+                }
+            ]
+
+        }
+    ],
+    "routing" : "ServerApp",
+    "service-discovery" :
+    {
+        "enable" : "true",
+        "multicast" : "224.224.224.245",
+        "port" : "30490",
+        "protocol" : "udp",
+        "initial_delay_min" : "10",
+        "initial_delay_max" : "100",
+        "repetitions_base_delay" : "200",
+        "repetitions_max" : "3",
+        "ttl" : "3",
+        "cyclic_offer_delay" : "2000",
+        "request_response_delay" : "1500"
+    }
+}
