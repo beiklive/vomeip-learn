@@ -1,4 +1,6 @@
-此 demo 参考 https://github.com/COVESA/capicxx-core-tools/wiki 编写
+此 demo 参考 
+https://github.com/COVESA/capicxx-core-tools/wiki
+https://blog.csdn.net/qq_42695024/article/details/135304699
 
 ## 什么是CommonAPI
 CommonAPI 是一种用于实现分布式服务的通用框架，旨在促使不同模块或组件之间的通信更加容易。它是一种跨平台的通信框架，适用于嵌入式系统、汽车电子等领域。
