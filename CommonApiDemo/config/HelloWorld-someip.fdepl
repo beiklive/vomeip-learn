@@ -1,0 +1,55 @@
+import "platform:/plugin/org.genivi.commonapi.someip/deployment/CommonAPI-4-SOMEIP_deployment_spec.fdepl"
+import "HelloWorld.fidl"
+ 
+define org.genivi.commonapi.someip.deployment for interface commonapi.examples.Helloworld {
+    SomeIpServiceID = 4660
+ 
+    attribute x {
+        SomeIpGetterID = 3000
+        SomeIpSetterID = 3001
+        SomeIpNotifierID = 33010
+        SomeIpNotifierEventGroups = { 33010 }
+ 
+        SomeIpAttributeReliable = true
+    }
+ 
+    attribute a1 {
+        SomeIpGetterID = 3002
+        SomeIpSetterID = 3003
+        SomeIpNotifierID = 33011
+        SomeIpNotifierEventGroups = { 33011 }
+ 
+        SomeIpAttributeReliable = true
+    }
+ 
+    method sayHello {
+        SomeIpMethodID = 3004
+        SomeIpReliable = true
+ 
+        in {
+            name {
+                SomeIpStringEncoding = utf16le
+            }
+        }
+    }
+}
+ 
+define org.genivi.commonapi.someip.deployment for typeCollection commonapi.examples.CommonTypes {
+    struct a1Struct {
+    }
+ 
+    struct a2Struct {
+    }
+ 
+}
+ 
+define org.genivi.commonapi.someip.deployment for provider as Service {
+    instance commonapi.examples.Helloworld {
+        InstanceId = "commonapi.examples.Helloworld"
+ 
+        SomeIpInstanceID = 22136
+ 
+        SomeIpUnicastAddress = "127.0.0.1"
+        SomeIpReliableUnicastPort = 30499
+    }
+}

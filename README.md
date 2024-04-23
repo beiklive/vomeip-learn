@@ -30,6 +30,11 @@ sudo make install
 ```
 
 ## demo使用
+
+demo1 到 demo6 都是 someip 的代码，使用以下方法编译即可
+
+CommonApiDemo 的内容参考其目录下的 README
+
 ### 编译
 可使用 cmake 或者 xmake 编译
 
@@ -72,6 +77,22 @@ xmake
 │   │   └── ServerDemo4
 │   ├── client.cpp
 │   └── server.cpp
+├── demo5
+│   ├── build
+│   │   ├── ClientDemo5
+│   │   └── ServerDemo5
+│   ├── client.cpp
+│   ├── client.json
+│   ├── server.cpp
+│   └── server.json
+├── demo6
+│   ├── build
+│   │   ├── ClientDemo6
+│   │   └── ServerDemo6
+│   ├── client.cpp
+│   ├── client.json
+│   ├── server.cpp
+│   └── server.json
 ├── README.md
 └── xmake.lua
 ```
